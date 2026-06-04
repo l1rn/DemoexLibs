@@ -1,6 +1,6 @@
 using System.Windows.Forms;
 
-namespace AllLibsDemoex
+namespace DemoexLibs.src.forms
 {
     public partial class LoginForm : Form
     {

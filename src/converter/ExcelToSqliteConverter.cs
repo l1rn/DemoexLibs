@@ -1,14 +1,11 @@
 ﻿
 using ExcelDataReader;
 using Microsoft.Data.Sqlite;
-using System;
 using System.Data;
-using System.Data.Common;
 using System.Diagnostics;
-using System.IO;
 using System.Text;
 
-namespace ExcelToSQLite
+namespace DemoexLibs.src.converter
 {
     public class ExcelToSqliteConverter
     {
