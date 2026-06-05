@@ -8,9 +8,9 @@
     <Nullable>enable</Nullable>
 
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageId>lirn.DemoexLibs</PackageId>
-    <Version>1.0.7</Version>
-    <Authors>Lirn</Authors>
+    <PackageId>UsefullLibs</PackageId>
+    <Version>1.0.12</Version>
+    <Authors>l1rn</Authors>
     <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);CopyDependenciesToPackage</TargetsForTfmSpecificBuildOutput>
   </PropertyGroup>
 
@@ -21,7 +21,7 @@
 </Target>
 
   <ItemGroup>
-    <PackageReference Include="lirn.ExcelToSQLite" Version="1.0.1" PrivateAssets="All" />
+    <PackageReference Include="lirn.ExcelToSQLite" Version="1.0.4" PrivateAssets="All" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.16" PrivateAssets="All" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.16" PrivateAssets="All" />
     <PackageReference Include="ExcelDataReader" Version="3.8.0" />

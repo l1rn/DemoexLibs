@@ -5,7 +5,7 @@ using System.Data;
 using System.Diagnostics;
 using System.Text;
 
-namespace DemoexLibs.src.converter
+namespace UsefullLibs.src.converter
 {
     public class ExcelToSqliteConverter
     {
@@ -138,7 +138,7 @@ namespace DemoexLibs.src.converter
             Debug.WriteLine($"Generated SQL: {createTableSql}");
             
             var connectionStringBuilder = new SqliteConnectionStringBuilder();
-            connectionStringBuilder.DataSource = "demo.db";
+            connectionStringBuilder.DataSource = dbPath;
             connectionStringBuilder.Mode = SqliteOpenMode.ReadWriteCreate;
 
             var connection = new SqliteConnection(connectionStringBuilder.ConnectionString);

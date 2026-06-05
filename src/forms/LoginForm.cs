@@ -1,10 +1,10 @@
 using System.Windows.Forms;
 
-namespace DemoexLibs.src.forms
+namespace UsefullLibs.src.forms
 {
-    public partial class LoginForm : Form
+    public partial class BaseLoginForm : Form
     {
-        public LoginForm()
+        public BaseLoginForm()
         {
             InitializeComponent();
         }

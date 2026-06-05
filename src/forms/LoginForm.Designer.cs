@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DemoexLibs.src.forms
+namespace UsefullLibs.src.forms
 {
-    partial class LoginForm
+    partial class BaseLoginForm
     {
         protected Panel MainPanel;
         protected Label LoginLabel;

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DemoexLibs.src.forms
+namespace UsefullLibs.src.forms
 {
     partial class BaseForm
     {
@@ -73,7 +73,7 @@ namespace DemoexLibs.src.forms
             TopLabel.Name = "TopLabel";
             TopLabel.Size = new Size(195, 20);
             TopLabel.TabIndex = 1;
-            TopLabel.Text = "replace with TopLabel.Text=";
+            TopLabel.Text = "TopLabel.Text";
             // 
             // CurrentUserPanel
             // 
@@ -105,7 +105,7 @@ namespace DemoexLibs.src.forms
             UsernameValue.Name = "UsernameValue";
             UsernameValue.Size = new Size(236, 20);
             UsernameValue.TabIndex = 1;
-            UsernameValue.Text = "replace with UsernameValue.Text=";
+            UsernameValue.Text = "UsernameValue.Text";
             // 
             // RoleTitle
             // 
@@ -123,14 +123,14 @@ namespace DemoexLibs.src.forms
             RoleValue.Name = "RoleValue";
             RoleValue.Size = new Size(200, 20);
             RoleValue.TabIndex = 3;
-            RoleValue.Text = "replace with RoleValue.Text=";
+            RoleValue.Text = "RoleValue.Text";
             // 
             // BaseForm
             // 
             ClientSize = new Size(1000, 550);
             Controls.Add(MainPanel);
             Name = "BaseForm";
-            Text = "replace with this.Text=";
+            Text = "this.Text";
             Load += BaseForm_Load;
             MainPanel.ResumeLayout(false);
             TopPanel.ResumeLayout(false);

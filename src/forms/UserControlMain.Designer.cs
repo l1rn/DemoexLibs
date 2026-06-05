@@ -1,6 +1,6 @@
-﻿namespace DemoexLibs.src.forms
+﻿namespace UsefullLibs.src.forms
 {
-    partial class ComponentMain
+    partial class UserControlMain
     {
         protected Panel MainPanel;
         protected Panel PicturePanel;
@@ -12,7 +12,6 @@
         protected Label DiscountLabel;
 
         protected Label FirstTitle;
-        protected Label SecondTitle;
 
         private System.ComponentModel.IContainer components = null;
 
@@ -31,15 +30,16 @@
             MainPanel = new Panel();
             DescriptivePanel = new Panel();
             FirstTitle = new Label();
-            SecondTitle = new Label();
             AdditionalPanel = new FlowLayoutPanel();
             PicturePanel = new Panel();
             PictureBox = new PictureBox();
             DiscountPanel = new Panel();
+            DiscountLabel = new Label();
             MainPanel.SuspendLayout();
             DescriptivePanel.SuspendLayout();
             PicturePanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)PictureBox).BeginInit();
+            DiscountPanel.SuspendLayout();
             SuspendLayout();
             // 
             // MainPanel
@@ -56,7 +56,6 @@
             // DescriptivePanel
             // 
             DescriptivePanel.Controls.Add(FirstTitle);
-            DescriptivePanel.Controls.Add(SecondTitle);
             DescriptivePanel.Controls.Add(AdditionalPanel);
             DescriptivePanel.Dock = DockStyle.Fill;
             DescriptivePanel.Location = new Point(167, 0);
@@ -70,19 +69,9 @@
             FirstTitle.AutoSize = true;
             FirstTitle.Location = new Point(0, 0);
             FirstTitle.Name = "FirstTitle";
-            FirstTitle.Size = new Size(190, 20);
+            FirstTitle.Size = new Size(95, 20);
             FirstTitle.TabIndex = 0;
-            FirstTitle.Text = "replace with FirstTitle.Text=";
-            // 
-            // SecondTitle
-            // 
-            SecondTitle.AutoEllipsis = true;
-            SecondTitle.AutoSize = true;
-            SecondTitle.Location = new Point(0, 0);
-            SecondTitle.Name = "SecondTitle";
-            SecondTitle.Size = new Size(190, 20);
-            SecondTitle.TabIndex = 1;
-            SecondTitle.Text = "replace with FirstTitle.Text=";
+            FirstTitle.Text = "FirstTitle.Text";
             // 
             // AdditionalPanel
             // 
@@ -112,18 +101,28 @@
             // 
             // DiscountPanel
             // 
+            DiscountPanel.Controls.Add(DiscountLabel);
             DiscountPanel.Dock = DockStyle.Right;
             DiscountPanel.Location = new Point(532, 0);
             DiscountPanel.Name = "DiscountPanel";
             DiscountPanel.Size = new Size(168, 200);
             DiscountPanel.TabIndex = 2;
             // 
-            // ComponentMain
+            // DiscountLabel
+            // 
+            DiscountLabel.AutoSize = true;
+            DiscountLabel.Location = new Point(6, 83);
+            DiscountLabel.Name = "DiscountLabel";
+            DiscountLabel.Size = new Size(133, 20);
+            DiscountLabel.TabIndex = 0;
+            DiscountLabel.Text = "DiscountLabel.Text";
+            // 
+            // UserControlMain
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(MainPanel);
-            Name = "ComponentMain";
+            Name = "UserControlMain";
             Size = new Size(700, 200);
             Load += ComponentMain_OnLoad;
             MainPanel.ResumeLayout(false);
@@ -131,6 +130,8 @@
             DescriptivePanel.PerformLayout();
             PicturePanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)PictureBox).EndInit();
+            DiscountPanel.ResumeLayout(false);
+            DiscountPanel.PerformLayout();
             ResumeLayout(false);
         }
     }

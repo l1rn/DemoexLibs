@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
 
-namespace DemoexLibs.src.forms
+namespace UsefullLibs.src.forms
 {
     public partial class BaseForm : Form
     {
