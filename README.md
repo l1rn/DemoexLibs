@@ -18,10 +18,11 @@ excelToSqliteConverter.CreateSqliteTableFromDatable("data.db", "table_name", dt)
 string searchText = textBox1.Text.Trim();
 string filterText = comboBox1.Text;
 
-IQueryable<T> query = _masterTList.AsQueryable(); // replace T with the your model
+IQueryable<T> query = _masterTList.AsQueryable(); // replace T with the your model name
 query = SearchAllFields(query, searchText);
-query = FilterBy(filterText, "all", query, x => x.T); // replace T and "all" with parameters for your model (T - column, "all" - parameter in element that will return all elements)
+query = FilterBy(filterText, "all", query, x => x.T);
 query = SortBy(query, x => x.T, _ascending);
 
 UpdateTable(query.ToList());
 ```
+> T - column that you want to filter / sort, "all" - parameter in element that will return all element 
