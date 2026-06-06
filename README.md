@@ -25,4 +25,4 @@ query = SortBy(query, x => x.T, _ascending);
 
 UpdateTable(query.ToList());
 ```
-> T - column that you want to filter / sort, "all" - parameter in element that will return all element 
+> T - column that you want to filter / sort, "all" - parameter in element that will return all for the current model list
