@@ -2,24 +2,25 @@
 
 namespace UsefulLibs.src.common
 {
-    internal class CommonFilterFunctions
+    public class CommonFilterFunctions
     {
+        // usage
+        //
         public List<T> FilterBy<T>
             (
-                ComboBox cb,
+                string filterText,
                 string allParameter,
                 IQueryable<T> query,
                 Expression<Func<T, string>> selector)
         {
-            string filteredText = cb.Text;
-            if (allParameter == filteredText)
+            if (allParameter == filterText)
                 return query.ToList();
 
             var parameter = selector.Parameters[0];
 
             var body = Expression.Equal(
                 selector.Body,
-                Expression.Constant(filteredText)
+                Expression.Constant(filterText)
             );
 
             var lambda = Expression.Lambda<Func<T, bool>>(body, parameter);
