@@ -1,4 +1,4 @@
-﻿namespace UsefullLibs.src.forms
+﻿namespace UsefulLibs.src.forms
 {
     partial class UserControlMain
     {

@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace UsefullLibs.src.forms
+namespace UsefulLibs.src.forms
 {
     public partial class UserControlMain : UserControl
     {

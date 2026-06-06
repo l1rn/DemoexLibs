@@ -1,10 +1,10 @@
 ﻿using System.Linq.Expressions;
 
-namespace UsefullLibs.src.common
+namespace UsefulLibs.src.common
 {
     internal class CommonFilterFunctions
     {
-        private List<T> FilterBy<T>
+        public List<T> FilterBy<T>
             (
                 ComboBox cb,
                 string allParameter,
@@ -24,6 +24,62 @@ namespace UsefullLibs.src.common
 
             var lambda = Expression.Lambda<Func<T, bool>>(body, parameter);
             return query.Where(lambda).ToList();
+        }
+
+        public IQueryable<T> SearchAllFields<T>(
+        IQueryable<T> query,
+        string searchText
+    )
+        {
+            if (string.IsNullOrEmpty(searchText))
+                return query;
+
+            var parameter = Expression.Parameter(typeof(T), "x");
+            Expression combinedBody = null;
+
+            var containsMethod = typeof(string).GetMethod("Contains", new[] { typeof(string), typeof(StringComparison) });
+            var searchConstant = Expression.Constant(searchText, typeof(string));
+            var comparisonConstant = Expression.Constant(StringComparison.OrdinalIgnoreCase);
+
+            var stringProperties = typeof(T)
+                .GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance)
+                .Where(p => p.PropertyType == typeof(string));
+
+            foreach (var prop in stringProperties)
+            {
+                var propertyAccess = Expression.Property(parameter, prop);
+                var containsCall = Expression.Call(propertyAccess, containsMethod, searchConstant, comparisonConstant);
+
+                var nullConstant = Expression.Constant(null, typeof(string));
+                var isNotNull = Expression.NotEqual(propertyAccess, nullConstant);
+
+                var safeConstainsExpression = Expression.AndAlso(isNotNull, containsCall);
+                if (combinedBody == null)
+                {
+                    combinedBody = safeConstainsExpression;
+                }
+                else
+                {
+                    combinedBody = Expression.OrElse(combinedBody, safeConstainsExpression);
+                }
+            }
+
+            if (combinedBody == null)
+                return query;
+            var lambda = Expression.Lambda<Func<T, bool>>(combinedBody, parameter);
+            return query.Where(lambda);
+        }
+
+        public IQueryable<T> SortBy<T, TKey>
+            (
+                IQueryable<T> query,
+                Expression<Func<T, TKey>> selector,
+                bool ascending = true
+            )
+        {
+            return ascending
+                ? query.OrderBy(selector)
+                : query.OrderByDescending(selector);
         }
     }
 }

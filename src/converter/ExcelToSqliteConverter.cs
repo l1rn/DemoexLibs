@@ -5,7 +5,7 @@ using System.Data;
 using System.Diagnostics;
 using System.Text;
 
-namespace UsefullLibs.src.converter
+namespace UsefulLibs.src.converter
 {
     public class ExcelToSqliteConverter
     {

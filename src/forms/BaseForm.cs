@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
 
-namespace UsefullLibs.src.forms
+namespace UsefulLibs.src.forms
 {
     public partial class BaseForm : Form
     {

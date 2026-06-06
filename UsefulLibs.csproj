@@ -8,8 +8,8 @@
     <Nullable>enable</Nullable>
 
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageId>UsefullLibs</PackageId>
-    <Version>1.0.12</Version>
+    <PackageId>UsefulLibs</PackageId>
+    <Version>1.1.2</Version>
     <Authors>l1rn</Authors>
     <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);CopyDependenciesToPackage</TargetsForTfmSpecificBuildOutput>
   </PropertyGroup>
