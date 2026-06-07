@@ -6,7 +6,7 @@ namespace UsefulLibs.src.common
     {
         // usage
         //
-        public List<T> FilterBy<T>
+        public IQueryable<T> FilterBy<T>
             (
                 string filterText,
                 string allParameter,
@@ -14,7 +14,7 @@ namespace UsefulLibs.src.common
                 Expression<Func<T, string>> selector)
         {
             if (allParameter == filterText)
-                return query.ToList();
+                return query;
 
             var parameter = selector.Parameters[0];
 
@@ -24,7 +24,7 @@ namespace UsefulLibs.src.common
             );
 
             var lambda = Expression.Lambda<Func<T, bool>>(body, parameter);
-            return query.Where(lambda).ToList();
+            return query.Where(lambda);
         }
 
         public IQueryable<T> SearchAllFields<T>(
