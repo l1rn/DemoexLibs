@@ -9,6 +9,7 @@ excelToSqliteConverter.CreateSqliteTableFromDatable("data.db", "table_name", dt)
 ```C#
 : LoginForm
 : BaseForm // main form
+: BaseEditForm
 ```
 
 #### Filter functions:
