@@ -14,7 +14,7 @@ namespace UsefulLibs
         {
             flowLayoutPanel1.SuspendLayout();
             c.Padding = new Padding(0, 5, 0, 5);
-            if (c.GetType() == typeof(Label))
+            if (c.GetType() == typeof(Label) || c.GetType() == typeof(Button))
             {
                 c.Margin = new Padding(
                 (int)(this.Width) / 2 - (int)(c.PreferredSize.Width / 2),
