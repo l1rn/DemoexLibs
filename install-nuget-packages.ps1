@@ -21,7 +21,7 @@ foreach ($ServerUrl in $ServerUrls) {
         $downloaded = $true
         break
     } catch {
-        Write-Host "Failed from $fullUrl: $_" -ForegroundColor Yellow
+        Write-Host "Failed from $fullUrl: $($_.ToString())" -ForegroundColor Yellow
         continue
     }
 }
