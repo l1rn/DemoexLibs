@@ -1,6 +1,7 @@
 $ServerUrl = "https://pixeldrain.com/api/file/ythrfxJL"
 $InstallPath = "C:\LocalNuget\Packages"
 $TempZip = "$env:TEMP\packages.zip"
+$SourceName = "LocalSource"
 
 Write-Host "Installing NuGet packages..." -ForegroundColor Cyan
 
@@ -21,6 +22,17 @@ try {
     Write-Host "Extraction failed: $_" -ForegroundColor Red
     exit 1
 }
+
+
+Write-Host "Registering NuGet source..." -ForegroundColor Cyan
+
+dotnet nuget remove source "$LocalSource" -ErrorAction SilentlyContinue
+
+dotnet nuget add source "$InstallPath" `
+    --name "$LocalSource" `
+    --store-password-in-clear-text
+
+Write-Host "NuGet source added!" -ForegroundColor Green
 
 Remove-Item $TempZip -Force
 
