@@ -1,4 +1,4 @@
-$ServerUrl = "https://pixeldrain.com/api/file/ythrfxJL"
+$ServerUrl = "https://pixeldrain.com/u/ythrfxJL"
 $InstallPath = "C:\LocalNuget\Packages"
 $TempZip = "$env:TEMP\packages.zip"
 $SourceName = "LocalSource"
