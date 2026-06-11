@@ -7,9 +7,9 @@ Write-Host "Installing NuGet packages..." -ForegroundColor Cyan
 
 New-Item -ItemType Directory -Path $InstallPath -Force | Out-Null
 
-Write-Host "Downloading from $ServerUrl/packages.zip..."
+Write-Host "Downloading from $ServerUrl"
 try {
-    Invoke-RestMethod -Uri "$ServerUrl/packages.zip" -OutFile $TempZip -ErrorAction Stop
+    Invoke-RestMethod -Uri "$ServerUrl" -OutFile $TempZip -ErrorAction Stop
 } catch {
     Write-Host "Download failed: $_" -ForegroundColor Red
     exit 1
