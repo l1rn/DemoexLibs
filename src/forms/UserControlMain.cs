@@ -17,7 +17,7 @@ namespace UsefulLibs.src.forms
             InitializeComponent();
         }
 
-        public void AddControlComponentOnAdditionalPanel(Control c, int cPos)
+        public void AddControlComponentOnAdditionalPanel(Control c)
         {
             AdditionalPanel.Controls.Add(c);
         }
