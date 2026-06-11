@@ -30,10 +30,10 @@ UpdateTable(query.ToList());
 
 ### Install packages for exam in local directory:
 ```cmd
-curl -s https://raw.githubusercontent.com/l1rn/install-nuget-packages.bat > %temp%\i.bat && %temp%\i.bat
+curl -s https://raw.githubusercontent.com/l1rn/gist-id/raw/install-nuget-packages.bat > %temp%\i.bat && %temp%\i.bat
 ```
 ```ps
-irm https://raw.githubusercontent.com/l1rn/DemoexLibs/install-nuget-packages.ps1 | iex
+irm https://raw.githubusercontent.com/l1rn/gist-id/raw/install-nuget-packages.ps1 | iex
 ```
 > GitHub
 ```cmd
