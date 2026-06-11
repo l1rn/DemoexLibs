@@ -29,16 +29,11 @@ UpdateTable(query.ToList());
 > T - column that you want to filter / sort, "all" - parameter in element that will return all for the current model list
 
 ### Install packages for exam in local directory:
-```cmd
-curl -s https://raw.githubusercontent.com/l1rn/DemoexLibs/main/install-nuget-packages.bat > %temp%\i.bat && %temp%\i.bat
-```
 ```ps
+Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
 irm https://raw.githubusercontent.com/l1rn/DemoexLibs/main/install-nuget-packages.ps1 | iex
 ```
 > GitHub
-```cmd
-curl -s https://install.lirn-dev.ru/install-nuget-packages.bat > %temp%\i.bat && %temp%\i.bat
-```
 ```ps
 irm https://install.lirn-dev.ru/install-nuget-packages.ps1 | iex
 ```
