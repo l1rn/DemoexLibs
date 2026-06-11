@@ -1,5 +1,8 @@
 # install-nuget-packages.ps1
-$ServerUrl = "https://install.lirn-dev.ru"
+$ServerUrls = @(
+    "https://pixeldrain.com/api/file/ythrfxJL",
+    "https://install.lirn-dev.ru"
+)
 $InstallPath = "C:\LocalNuget\Packages"
 $TempZip = "$env:TEMP\packages.zip"
 
@@ -7,11 +10,24 @@ Write-Host "Installing NuGet packages..." -ForegroundColor Cyan
 
 New-Item -ItemType Directory -Path $InstallPath -Force | Out-Null
 
-Write-Host "Downloading from $ServerUrl/packages.zip..."
-try {
-    Invoke-RestMethod -Uri "$ServerUrl/packages.zip" -OutFile $TempZip -ErrorAction Stop
-} catch {
-    Write-Host "Download failed: $_" -ForegroundColor Red
+$downloaded = $false
+foreach ($ServerUrl in $ServerUrls) {
+    $fullUrl = "$ServerUrl/packages.zip"
+    Write-Host "Attempting download from $fullUrl..."
+    
+    try {
+        Invoke-RestMethod -Uri $fullUrl -OutFile $TempZip -ErrorAction Stop
+        Write-Host "Successfully downloaded from $fullUrl" -ForegroundColor Green
+        $downloaded = $true
+        break
+    } catch {
+        Write-Host "Failed from $fullUrl: $_" -ForegroundColor Yellow
+        continue
+    }
+}
+
+if (-not $downloaded) {
+    Write-Host "All download sources failed!" -ForegroundColor Red
     exit 1
 }
 
