@@ -42,11 +42,11 @@ namespace UsefulLibs.src.common
             }
             return true;
         }
-        public bool ValidateTextBoxesAreNotNull(params TextBox[] textBoxes)
+        public bool ValidateTextBoxesAreNotNull(params Control[] controls)
         {
-            foreach (TextBox tb in textBoxes)
+            foreach (Control c in controls)
             {
-                if (string.IsNullOrWhiteSpace(tb.Text.Trim()))
+                if (string.IsNullOrWhiteSpace(c.Text.Trim()))
                 {
                     MessageBox.Show(
                         "Пожалуйста введите корректные данные!",
@@ -54,8 +54,8 @@ namespace UsefulLibs.src.common
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Error
                     );
-                    tb.Focus();
-                    tb.SelectAll();
+                    c.Focus();
+                    c.Select();
                     return false;
                 }
             }
