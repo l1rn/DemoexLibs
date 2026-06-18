@@ -1,9 +1,12 @@
 ﻿
 using ExcelDataReader;
 using Microsoft.Data.Sqlite;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Data;
+using System.Data.Common;
 using System.Diagnostics;
 using System.Text;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace UsefulLibs.src.converter
 {
@@ -73,13 +76,13 @@ namespace UsefulLibs.src.converter
                 }
             }
         }
-        public int CheckTableDataIfExists(string dbPath, string tableName)
+        public int CheckDataIfExists(string dbPath, string tableName)
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             StringBuilder sqlBuilder = new StringBuilder();
             sqlBuilder.Append($"SELECT 1 FROM {tableName}");
             string sqlCommand = sqlBuilder.ToString();
-            using(var connection = new SqliteConnection($"Data Source={dbPath}"))
+            using(var connection = new SqliteConnection($"Data Source={dbPath}; Foreign Keys=True;"))
             {
                 connection.Open();
                 SqliteCommand command = new SqliteCommand(sqlCommand, connection);
@@ -111,23 +114,47 @@ namespace UsefulLibs.src.converter
             return -1;
         }
 
-        public void CreateSqliteTableFromDatable(string dbPath, string tableName, DataTable dt)
+        public void CreateTable(
+            string dbPath, 
+            string tableName, 
+            DataTable dt, 
+            Dictionary<string, string>? foreignKeyConfig = null, 
+            Dictionary<string, string>? appendUniqueness = null)
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             StringBuilder sqlBuilder = new StringBuilder();
             sqlBuilder.Append($"CREATE TABLE IF NOT EXISTS [{tableName}] (");
-            sqlBuilder.Append($"[Id] INTEGER PRIMARY KEY AUTOINCREMENT,");
+            sqlBuilder.Append($"[Id] INTEGER PRIMARY KEY AUTOINCREMENT");
+
             DataRow titleRow = dt.Rows[0];
             for (int i = 0; i < dt.Columns.Count; i++)
             {
+                sqlBuilder.Append(", ");
+                string columnName = titleRow[i].ToString();
                 DataColumn column = dt.Columns[i];
                 string? determinedType = DetermineNumericType(dt, column.ColumnName);
                 string sqliteType = MapCSharpTypeToSqlite(column.DataType, determinedType);
+                
                 sqlBuilder.Append($"[{titleRow[i]}] {sqliteType}");
-
-                if (i < dt.Columns.Count - 1)
+                
+                if(appendUniqueness != null && appendUniqueness.Count > 0)
                 {
-                    sqlBuilder.Append(',');
+                    foreach(var el in appendUniqueness)
+                    {
+                        if(tableName == el.Key && columnName == el.Value)
+                        {
+                            sqlBuilder.Append(" UNIQUE");
+                        }
+                    }
+                }
+            }
+
+
+            if (foreignKeyConfig != null && foreignKeyConfig.Count > 0) {
+                foreach (var kvp in foreignKeyConfig) 
+                {
+                    sqlBuilder.Append(", ");
+                    sqlBuilder.Append($"FOREIGN KEY({kvp.Key}) REFERENCES {kvp.Value}");
                 }
             }
 
@@ -140,6 +167,7 @@ namespace UsefulLibs.src.converter
             var connectionStringBuilder = new SqliteConnectionStringBuilder();
             connectionStringBuilder.DataSource = dbPath;
             connectionStringBuilder.Mode = SqliteOpenMode.ReadWriteCreate;
+            connectionStringBuilder.ForeignKeys = true;
 
             var connection = new SqliteConnection(connectionStringBuilder.ConnectionString);
             
@@ -151,20 +179,34 @@ namespace UsefulLibs.src.converter
             }
 
             Debug.WriteLine($"Database successfully created at: {dbPath}");
+            connection.Close();
+        }
+
+        public void InsertData(string dbPath, string tableName, DataTable dt)
+        {
+            var connectionStringBuilder = new SqliteConnectionStringBuilder();
+            connectionStringBuilder.DataSource = dbPath;
+            connectionStringBuilder.Mode = SqliteOpenMode.ReadWriteCreate;
+            connectionStringBuilder.ForeignKeys = true;
+
+            StringBuilder sqlBuilder = new StringBuilder();
+            DataRow titleRow = dt.Rows[0];
+
             sqlBuilder.Append($"INSERT INTO {tableName} (");
-            for( int i = 0; i < titleRow.ItemArray.Length; i++)
+            for (int i = 0; i < titleRow.ItemArray.Length; i++)
             {
                 sqlBuilder.Append($"[{titleRow[i]}]");
-                if(i < titleRow.ItemArray.Length - 1)
+                if (i < titleRow.ItemArray.Length - 1)
                 {
                     sqlBuilder.Append(',');
                 }
             }
             sqlBuilder.Append(") VALUES ");
 
-            for (int row = 1; row < dt.Rows.Count; row++) {
+            for (int row = 1; row < dt.Rows.Count; row++)
+            {
                 sqlBuilder.Append("(");
-                for(int col = 0; col < dt.Rows[row].ItemArray.Length; col++)
+                for (int col = 0; col < dt.Rows[row].ItemArray.Length; col++)
                 {
                     string safeValue = dt.Rows[row].ItemArray[col].ToString().Replace("'", "''");
                     sqlBuilder.Append($"'{safeValue}'");
@@ -185,12 +227,17 @@ namespace UsefulLibs.src.converter
             }
 
             string debugSql = sqlBuilder.ToString();
-            using (var command = connection.CreateCommand())
+
+            using (var connection = new SqliteConnection(connectionStringBuilder.ConnectionString))
             {
-                command.CommandText = debugSql;
-                command.ExecuteNonQuery();
+                connection.Open();
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = debugSql;
+                    command.ExecuteNonQuery();
+                }
+                connection.Close();
             }
-            connection.Close();
         }
     }
 }

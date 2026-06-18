@@ -9,37 +9,44 @@
 
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>UsefulLibs</PackageId>
-    <Version>1.1.6</Version>
+    <Version>1.3.1</Version>
     <Authors>l1rn</Authors>
     <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);CopyDependenciesToPackage</TargetsForTfmSpecificBuildOutput>
   </PropertyGroup>
 
-<Target Name="CopyDependenciesToPackage" DependsOnTargets="ResolveReferences">
+	<Target Name="CopyDependenciesToPackage" DependsOnTargets="ResolveReferences">
+		<ItemGroup>
+			<BuildOutputInPackage Include="@(ReferenceCopyLocalPaths)" TargetPath="%(ReferenceCopyLocalPaths.DestinationSubDirectory)" />
+		</ItemGroup>
+	</Target>
 	<ItemGroup>
-		<BuildOutputInPackage Include="@(ReferenceCopyLocalPaths)" TargetPath="%(ReferenceCopyLocalPaths.DestinationSubDirectory)" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.16" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.16" />
+		<PackageReference Include="ExcelDataReader" Version="3.8.0" />
+		<PackageReference Include="ExcelDataReader.DataSet" Version="3.8.0" />
+		<PackageReference Include="System.Text.Encoding.CodePages" Version="9.0.16" />
 	</ItemGroup>
-</Target>
+	<ItemGroup>
+		<None Include="UsefulLibs.targets" Pack="true" PackagePath="build\" />
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.16" PrivateAssets="All" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.16" PrivateAssets="All" />
-    <PackageReference Include="ExcelDataReader" Version="3.8.0" />
-    <PackageReference Include="ExcelDataReader.DataSet" Version="3.8.0" />
-    <PackageReference Include="System.Text.Encoding.CodePages" Version="9.0.16" />
-  </ItemGroup>
+		<None Include="**\*.cs"
+			  Exclude="obj\**\*;bin\**\*;Properties\**\*"
+			  Pack="true"
+			  PackagePath="src\" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Compile Update="Properties\Resources.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
+	<ItemGroup>
+		<Compile Update="Properties\Resources.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Resources.resx</DependentUpon>
+		</Compile>
+	</ItemGroup>
 
-  <ItemGroup>
-    <EmbeddedResource Update="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Update="Properties\Resources.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>Resources.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+	</ItemGroup>
 </Project>

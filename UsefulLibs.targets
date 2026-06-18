@@ -1,0 +1,16 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  
+  <ItemGroup>
+    <UsefulLibsSourceFiles Include="$(MSBuildThisFileDirectory)..\src\**\*.cs" />
+  </ItemGroup>
+
+  <Target Name="CopyUsefulLibsSources" BeforeTargets="BeforeCompile">
+    <Message Importance="high" Text="⚡ UsefulLibs: Injecting library source code into your project directory..." />
+    
+    <Copy 
+      SourceFiles="@(UsefulLibsSourceFiles)" 
+      DestinationFolder="$(ProjectDir)Base\%(RecursiveDir)" 
+      SkipUnchangedFiles="true" />
+  </Target>
+  
+</Project>
